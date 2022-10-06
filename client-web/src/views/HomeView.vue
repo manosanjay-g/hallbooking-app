@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" id="home">
+  <div class="container-fluid mb-5" id="home">
     <div class="row px-2 mt-4" v-if="navBarStore.query == ''">
       <span class="heading">Recommended Halls</span>
     </div>
@@ -66,53 +66,48 @@
 </template>
 
 <script setup>
-import {computed, onMounted} from 'vue'
+import { computed, onMounted } from "vue";
 
 import HallCard from "../components/home/HallCard.vue";
 import EventCard from "../components/home/EventCard.vue";
 
-import { useAuthStore } from '../store/authStore';
-import {useHallsStore} from '../store/hallsStore';
-import {useEventsStore} from '../store/eventsStore';
-import { useNavBarStore } from '../store/navBarStore';
+import { useAuthStore } from "../store/authStore";
+import { useHallsStore } from "../store/hallsStore";
+import { useEventsStore } from "../store/eventsStore";
+import { useNavBarStore } from "../store/navBarStore";
 
 const authStore = useAuthStore();
 const navBarStore = useNavBarStore();
 
 //Halls
 const hallStore = useHallsStore();
-let filteredHalls = computed(()=>{
+let filteredHalls = computed(() => {
   if (navBarStore.query) {
-        return hallStore.halls.filter((hall) => {
-          return hall.name
-            .toLowerCase()
-            .includes(navBarStore.query.toLowerCase());
-        });
-      } else {
-        return hallStore.halls;
-      }
-})
+    return hallStore.halls.filter((hall) => {
+      return hall.name.toLowerCase().includes(navBarStore.query.toLowerCase());
+    });
+  } else {
+    return hallStore.halls;
+  }
+});
 
 //Events
 const eventStore = useEventsStore();
-let filteredEvents = computed(()=>{
+let filteredEvents = computed(() => {
   if (navBarStore.query) {
-        return eventStore.events.filter((event) => {
-          return event.name
-            .toLowerCase()
-            .includes(navBarStore.query.toLowerCase());
-        });
-      } else {
-        return eventStore.events;
-      }
-})
+    return eventStore.events.filter((event) => {
+      return event.name.toLowerCase().includes(navBarStore.query.toLowerCase());
+    });
+  } else {
+    return eventStore.events;
+  }
+});
 
-onMounted(()=>{
+onMounted(() => {
   hallStore.getHalls();
   eventStore.getEvents();
   authStore.getUserInfo();
-})
-
+});
 </script>
 
 <style scoped>

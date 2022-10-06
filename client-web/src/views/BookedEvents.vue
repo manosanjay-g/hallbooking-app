@@ -284,8 +284,10 @@ const uploadImage = async (e) => {
   event.value.images = e.target.files;
 };
 //Toggle Modal
-const toggleModal = async (event) => {
-  event.value = event;
+const toggleModal = async (eventInfo) => {
+  event.value = eventInfo;
+  console.log(event.value);
+  console.log(eventInfo);
   showModal.value = !showModal.value;
 };
 
